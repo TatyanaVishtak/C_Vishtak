@@ -1,0 +1,90 @@
+# include "C_Vishtak.h"
+
+void help();
+char *str_replace(char *, char *, char *);
+
+int main(int argc, char *argv[])
+{    
+  char * a = (char *) malloc (MAX_SIZE);
+	char * x = (char *) malloc (MAX_SIZE);
+
+	int opt;
+
+if ((argc != 3) && (argc != 4))
+{
+	printf("Incorrect input of the command-line arguments\n");			
+	help();
+}
+
+	memset (a, 0x00, MAX_SIZE);
+	memset (x, 0x00, MAX_SIZE);
+
+	printf ("Enter the source text: ");
+	fgets (a, MAX_SIZE, stdin);
+
+	a [strlen (a) - 1] = '\0';
+	memcpy (x, a, MAX_SIZE);
+	
+if(argc == 3)
+	printf("Result: %s\n", str_replace(argv [1], argv [2], a));
+else 
+{
+		if(argc == 4)
+		{
+			while ((opt = getopt (argc, argv, "i")) != -1) 
+			{
+				if (opt == 'i')
+				{
+					if (optind == 2)
+					{
+							while (*x != '\0')
+							{
+								if (strncasecmp(x, argv[2], strlen(argv[2])) == 0)
+								{
+										strncpy (argv [2] , x , strlen (argv [2]));
+										a = str_replace (argv [2], argv [3], a); 
+										x = x + strlen (argv [2]);
+								}
+								else 
+									x++;
+							}
+					}	
+					if (optind == 3)
+					{ 
+							while (*x != '\0')
+							{
+								if (strncasecmp(x, argv[1], strlen(argv[1])) == 0)
+								{
+										strncpy (argv [1] , x , strlen (argv [1]));
+										a = str_replace (argv [1], argv [3], a); 
+										x = x + strlen (argv [1]);
+								}
+								else 
+									x++;
+							}
+					}
+					if (optind == 4)
+					{	
+							while (*x != '\0')
+							{
+								if (strncasecmp(x, argv[1], strlen(argv[1])) == 0)
+								{
+										strncpy (argv [1] , x , strlen (argv [1]));
+										a = str_replace (argv [1], argv [2], a); 
+										x = x + strlen (argv [1]);
+								}
+								else 
+									x++;
+							}
+					}
+					printf("Result: %s\n", a);
+				}
+					if (opt != 'i')
+					{
+						printf("Entered an invalid option\n");
+						help();
+					}			
+			}
+		}
+}
+}
