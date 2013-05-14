@@ -1,0 +1,33 @@
+Name: C_Vishtak
+Version: 1.0
+Release: 1
+Summary: Package for the replacement substring in a string
+Group: Testing
+License: GPL
+Source0: C_Vishtak-1.0.tar.gz
+BuildArch: i386
+BuildRoot: /tmp/laba_c
+    
+%description
+This package basically does nothing, but it potentially could
+do something useful.   
+     
+%prep
+%setup -q 
+       
+%build
+make
+
+%install
+make install 
+ 
+%files
+ %defattr(-,root,root)
+~/LABA_C/C_Vishtak
+     
+%clean
+make clean
+rm -rf $RPM_BUILD_ROOT
+
+%changelog
+* Thu may 2013 Vishtak
