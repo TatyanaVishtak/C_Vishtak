@@ -1,0 +1,35 @@
+# include "C_Vishtak.h"
+
+char *str_replace(char *search, char *replace, char *subject)
+{
+    char  *p = NULL , *old = NULL, *new_subject = NULL; 
+    int c = 0 , search_size;
+    
+    search_size = strlen(search);
+     
+    for(p = strstr(subject , search) ; p != NULL ; p = strstr(p + search_size , search))
+    {
+        c++;
+    }
+     
+    c = ( strlen(replace) - search_size )*c + strlen(subject);
+     
+    new_subject = malloc( c );
+     
+    strcpy(new_subject , "");
+     
+    old = subject;
+     
+    for(p = strstr(subject , search) ; p != NULL ; p = strstr(p + search_size , search))
+    {
+        strncpy(new_subject + strlen(new_subject) , old , p - old);
+         
+        strcpy(new_subject + strlen(new_subject) , replace);
+         
+        old = p + search_size;
+    }
+
+    strcpy(new_subject + strlen(new_subject) , old);
+
+  return new_subject;
+}
